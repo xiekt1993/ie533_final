@@ -16,9 +16,11 @@ struct sbm_parameters{
 };
 
 enum node_type{
-  NODE_TYPE_REGULAR;
-  NODE_TYPE_STUBBORN_P;
-  NODE_TYPE_STUBBORN_N;
+  NODE_TYPE_REGULAR,
+  NODE_TYPE_STUBBORN_P,
+  NODE_TYPE_STUBBORN_N
 };
 
 typedef vector<node_type> node_types;
+
+typedef vector<double> r_dirichlet;
