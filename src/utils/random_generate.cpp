@@ -37,3 +37,13 @@ r_dirichlet random_dirichlet(const r_dirichlet& pars){
 
   return random_dirichlet;
 }
+
+uint8_t random_discrete(const vector<double>& prob){
+  double p = random_uniform();
+  uint8_t block = 0;
+  while(p > 0){
+    p -= prob[block];
+    block++;
+  }
+  return --block;
+}

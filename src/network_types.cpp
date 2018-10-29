@@ -6,8 +6,8 @@ typedef unsigned short int n_time;
 
 // store the adjacenty list and weighted adjacenty list
 // for sparse networks
-typedef list<list<uint8_t>> adjacency_list;
-typedef list<list<double>> adjacency_list_weighted;
+typedef vector<vector<uint8_t>> adjacency_list;
+typedef vector<vector<double>> adjacency_list_weighted;
 
 struct sbm_parameters{
   n_nodes number_of_nodes;

@@ -14,5 +14,8 @@ int main(){
   for(auto it = dir_pars.begin(); it < dir_pars.end(); it++) cout << *it << " ";
   cout << endl;
 
+  vector<double> pr(5,0.2);
+  cout << (int)random_discrete(pr) << endl;
+
   return 0;
 }
