@@ -7,7 +7,7 @@ typedef unsigned short int n_time;
 // store the adjacenty list and weighted adjacenty list
 // for sparse networks
 typedef vector<vector<uint8_t>> adjacency_list;
-typedef vector<vector<double>> adjacency_list_weighted;
+typedef vector<vector<double>> influnce_list;
 
 struct sbm_parameters{
   n_nodes number_of_nodes;
@@ -24,3 +24,15 @@ enum node_type{
 typedef vector<node_type> node_types;
 
 typedef vector<double> r_dirichlet;
+
+struct sparse_csr_weighted{
+  n_nodes number_of_nodes;
+  // length = number_of_nodes
+  double *confidence;
+  // length = non_zero_elems
+  double *influence;
+  // same length as influence
+  int *col_index;
+  // length = number_of_nodes + 1
+  int *row_ptr;
+};

@@ -28,24 +28,24 @@ adjacency_list generate_sbm(const sbm_parameters& sbm_pars){
   return sbm_adj_list;
 }
 
-adjacency_list_weighted generate_weighted_sbm(const adjacency_list& adj_list){
+influence_list generate_influence(const adjacency_list& adj_list){
   // generate a weighted sbm according to the parameters
   const n_nodes num_nodes = adj_list.size();
-  adjacency_list_weighted adj_list_weighted(num_nodes);
+  influence_list influence(num_nodes);
 
   int n_adj_nodes;
   vector<double> node_i_weights;
   for(int i = 0; i < num_nodes; i++){
     n_adj_nodes = adj_list[i].size();
-    adj_list_weighted[i] = vector<double>(n_adj_nodes + 1);
+    influence[i] = vector<double>(n_adj_nodes + 1);
 
     // stubornness of node i
-    double& node_i_stubborn = adj_list_weighted[i][n_adj_nodes] = random_uniform();
+    double& node_i_stubborn = influence[i][n_adj_nodes] = random_uniform();
     node_i_weights = random_dirichlet(vector<double>(n_adj_nodes, 1));
     for(int j = 0; j < n_adj_nodes; j++){
-      adj_list_weighted[i][j] = (node_i_weights[j]) * (1 - node_i_stubborn);
+      influence[i][j] = (node_i_weights[j]) * (1 - node_i_stubborn);
     }
   }
 
-  return adj_list_weighted;
+  return influence;
 }
