@@ -5,7 +5,8 @@
 sparse_csr_weighted to_sparse(const adjacency_list& adj_list, const influence_list& influence){
   sparse_csr_weighted csr_info;
 
-  csr_info.number_of_nodes = adj_list.size();
+  csr_info.number_of_nodes = new n_nodes(0);
+  *(csr_info.number_of_nodes) = adj_list.size();
   csr_info.confidence = new double[crs_info.number_of_nodes];
   csr_info.row_ptr = new int[csr_info.number_of_nodes + 1](0);
 

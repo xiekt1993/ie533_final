@@ -26,13 +26,32 @@ typedef vector<node_type> node_types;
 typedef vector<double> r_dirichlet;
 
 struct sparse_csr_weighted{
-  n_nodes number_of_nodes;
+  n_nodes *number_of_nodes;
   // length = number_of_nodes
   double *confidence;
-  // length = non_zero_elems
+  // length = non_zero_elems, weights data
   double *influence;
-  // same length as influence
+  // same length as influence, corresponding linked nodes
   int *col_index;
   // length = number_of_nodes + 1
   int *row_ptr;
+};
+
+struct network_info{
+  node_type* nodes_types;
+  uint8_t* time_length;
+  double* p_threshold;
+  double* n_threshold;
+};
+
+struct simulation_single{
+  double* evidence;
+  int* activated_positive;
+  int* activated_negative;
+};
+
+struct network_in_device{
+  sparse_csr_weighted csr_info;
+  network_info nw_info;
+  simulation_single sim_ptr;
 };
