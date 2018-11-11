@@ -9,7 +9,7 @@ struct sparse_csr_weighted{
 */
 
 // __host__
-network_in_device cp_to_device(const sparse_csr_weighted &csr_info, const node_types &initial_info){
+network_in_device cp_to_device(const sparse_csr_weighted &csr_info, const network_infos &h_nw_info){
   network_in_device nw_device;
   sparse_csr_weighted& device_initial_info = nw_device.csr_info;
   network_info& nw_info = nw_device.nw_info;
@@ -17,23 +17,37 @@ network_in_device cp_to_device(const sparse_csr_weighted &csr_info, const node_t
 
   const n_nodes num_nodes = *csr_info.number_of_nodes;
   const uint8_t n_links = csr_info.row_ptr[num_nodes];
+  const uint8_t& t_length = *nw_info.time_length;
 
   cudaMalloc((void**) &(device_initial_info.n_nodes), sizeof(n_nodes));
+  cudaMemcpy(device_initial_info.n_nodes, &num_nodes, sizeof(n_nodes), cudaMemcpyHostToDevice);
   cudaMalloc((void**) &(device_initial_info.confidence),
     num_nodes * sizeof(double));
+  cudaMemcpy(device_initial_info.confidence, csr_info.confidence,
+    num_nodes * sizeof(double), cudaMemcpyHostToDevice);
   cudaMalloc((void**) &(device_initial_info.influence),
     n_links * sizeof(double));
+  cudaMemcpy(device_initial_info.influence, csr_info.influence,
+    n_links * sizeof(double), cudaMemcpyHostToDevice);
   cudaMalloc((void**) &(device_initial_info.col_index),
     n_links * sizeof(int));
+  cudaMemcpy(device_initial_info.col_index, csr_info.col_index,
+    n_links * sizeof(int), cudaMemcpyHostToDevice);
   cudaMalloc((void**) &(device_initial_info.row_ptr),
     (num_nodes + 1) * sizeof(int));
+  cudaMemcpy(device_initial_info.row_ptr, csr_info.col_index,
+    (num_nodes + 1) * sizeof(int), cudaMemcpyHostToDevice);
 
   cudaMalloc((void**) &(nw_info.nodes_types), num_nodes * sizeof(node_type));
+  cudaMemcpy(nw_info.nodes_types, h_nw_info.nodes_types,
+    num_nodes * sizeof(node_type), cudaMemcpyHostToDevice);
   cudaMalloc((void**) &(nw_info.time_length), sizeof(uint8_t));
+  cudaMemcpy(nw_info.time_length, &t_length, sizeof(uint8_t), cudaMemcpyHostToDevice);
   cudaMalloc((void**) &(nw_info.p_threshold), sizeof(double));
+  cudaMemcpy(nw_info.p_threshold, h_nw_info.p_threshold, sizeof(double), cudaMemcpyHostToDevice);
   cudaMalloc((void**) &(nw_info.n_threshold), sizeof(double));
+  cudaMemcpy(nw_info.n_threshold, h_nw_info.n_threshold, sizeof(double), cudaMemcpyHostToDevice);
 
-  const uint8_t& t_length = *nw_info.time_length;
   // accrued evidence is num_nodes * time_length
   cudaMalloc((void**) &(sim_ptr.evidence), num_nodes * t_length * sizeof(double));
   // think i'd rather use local memory
