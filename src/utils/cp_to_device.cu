@@ -17,7 +17,7 @@ network_in_device cp_to_device(const sparse_csr_weighted &csr_info, const networ
 
   const n_nodes num_nodes = *csr_info.number_of_nodes;
   const uint8_t n_links = csr_info.row_ptr[num_nodes];
-  const uint8_t& t_length = *nw_info.time_length;
+  const uint8_t& t_length = *h_nw_info.time_length;
 
   cudaMalloc((void**) &(device_initial_info.n_nodes), sizeof(n_nodes));
   cudaMemcpy(device_initial_info.n_nodes, &num_nodes, sizeof(n_nodes), cudaMemcpyHostToDevice);
@@ -51,8 +51,10 @@ network_in_device cp_to_device(const sparse_csr_weighted &csr_info, const networ
   // accrued evidence is num_nodes * time_length
   cudaMalloc((void**) &(sim_ptr.evidence), num_nodes * t_length * sizeof(double));
   // think i'd rather use local memory
-  cudaMalloc((void**) &(sim_ptr.activated_positive), num_nodes * sizeof(int));
-  cudaMalloc((void**) &(sim_ptr.activated_negative), num_nodes * sizeof(int));
+  cudaMalloc((void**) &(sim_ptr.activated_positive), num_nodes * t_length * sizeof(int));
+  cudaMalloc((void**) &(sim_ptr.activated_negative), num_nodes * t_length * sizeof(int));
+  cudaMalloc((void**) &(sim_ptr.total_activated_positive), num_nodes * sizeof(int));
+  cudaMalloc((void**) &(sim_ptr.total_activated_negative), num_nodes * sizeof(int));
 
   return nw_device;
 }

@@ -5,18 +5,12 @@
 #include<list>
 #include<vector>
 #include<random>
-
-// #include<cuda_runtime.h>
-// #include "cublas_v2.h"
+#include<fstream>
 
 #include "network_types.cpp"
 
 #include "./utils/random_generate.cpp"
 #include "./utils/generate_network.cpp"
 #include "./utils/to_sparse.cpp"
-
-#include "./utils/cp_to_device.cu"
-
-#include "./device_utils/device_cal_evidence.cu"
 
 #endif

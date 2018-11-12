@@ -6,13 +6,13 @@ typedef unsigned short int n_time;
 
 // store the adjacenty list and weighted adjacenty list
 // for sparse networks
-typedef vector<vector<uint8_t>> adjacency_list;
-typedef vector<vector<double>> influnce_list;
+typedef vector<vector<uint8_t> > adjacency_list;
+typedef vector<vector<double> > influnce_list;
 
 struct sbm_parameters{
   n_nodes number_of_nodes;
   vector<double> class_probability;
-  vector<vector<double>> link_probability_matrix;
+  vector<vector<double> > link_probability_matrix;
 };
 
 enum node_type{
@@ -48,6 +48,8 @@ struct simulation_single{
   double* evidence;
   int* activated_positive;
   int* activated_negative;
+  int* total_activated_positive;
+  int* total_activated_negative;
 };
 
 struct network_in_device{
