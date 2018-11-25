@@ -1,1 +1,5 @@
-#include "../src/cuda_include.h"
+#include "../src/include.h"
+
+int main(){
+  
+}

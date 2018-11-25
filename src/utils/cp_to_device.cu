@@ -9,7 +9,7 @@ struct sparse_csr_weighted{
 */
 
 // __host__
-network_in_device cp_to_device(const sparse_csr_weighted &csr_info, const network_infos &h_nw_info){
+network_in_device cp_to_device(const sparse_csr_weighted &csr_info, const network_info &h_nw_info){
   network_in_device nw_device;
   sparse_csr_weighted& device_initial_info = nw_device.csr_info;
   network_info& nw_info = nw_device.nw_info;
@@ -19,8 +19,8 @@ network_in_device cp_to_device(const sparse_csr_weighted &csr_info, const networ
   const uint8_t n_links = csr_info.row_ptr[num_nodes];
   const uint8_t& t_length = *h_nw_info.time_length;
 
-  cudaMalloc((void**) &(device_initial_info.n_nodes), sizeof(n_nodes));
-  cudaMemcpy(device_initial_info.n_nodes, &num_nodes, sizeof(n_nodes), cudaMemcpyHostToDevice);
+  cudaMalloc((void**) &(device_initial_info.number_of_nodes), sizeof(n_nodes));
+  cudaMemcpy(device_initial_info.number_of_nodes, &num_nodes, sizeof(n_nodes), cudaMemcpyHostToDevice);
   cudaMalloc((void**) &(device_initial_info.confidence),
     num_nodes * sizeof(double));
   cudaMemcpy(device_initial_info.confidence, csr_info.confidence,
@@ -64,7 +64,7 @@ void clean_device_memory(network_in_device &nw_device){
   network_info& nw_info = nw_device.nw_info;
   simulation_single& sim_ptr = nw_device.sim_ptr;
 
-  cudaFree(device_initial_info.n_nodes);
+  cudaFree(device_initial_info.number_of_nodes);
   cudaFree(device_initial_info.confidence);
   cudaFree(device_initial_info.influence);
   cudaFree(device_initial_info.col_index);

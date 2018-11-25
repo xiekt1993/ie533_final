@@ -7,8 +7,8 @@ void device_cal_evidence(network_in_device &nw_device, const int &node_id, const
 
   const n_nodes num_nodes = *csr_info.number_of_nodes;
   const double& confidence = csr_info.confidence[node_id];
-  const double& p_threashold = *nw_info.p_threshold;
-  const double& n_threashold = *nw_info.n_threshold;
+  const double& p_threshold = *nw_info.p_threshold;
+  const double& n_threshold = *nw_info.n_threshold;
 
   double *current_evidence = sim_ptr.evidence + t * num_nodes + node_id;
 
@@ -67,12 +67,12 @@ void device_cal_evidence(network_in_device &nw_device, const int &node_id, const
       ;
   }
 
-  if(*evidence > p_threshold){
+  if(*current_evidence > p_threshold){
     *p_activated = 1;
     *n_activated = 0;
     *total_activated_p ++;
   }
-  else if(*evidence < n_threshold){
+  else if(*current_evidence < n_threshold){
     *p_activated = 0;
     *n_activated = 1;
     *total_activated_n ++;

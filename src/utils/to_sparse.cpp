@@ -29,3 +29,10 @@ sparse_csr_weighted to_sparse(const adjacency_list& adj_list, const influence_li
 
   return csr_info;
 }
+
+sparse_csr_weighted generate_sparse(const sbm_parameters& sbm_pars){
+  adjacency_list sbm_adj_list = generate_sbm(sbm_pars);
+  influence_list influence = generate_influence(sbm_adj_list);
+
+  return to_sparse(sbm_adj_list, influence);
+}
