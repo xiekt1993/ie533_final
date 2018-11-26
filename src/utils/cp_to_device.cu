@@ -20,7 +20,7 @@ network_in_device cp_to_device(const sparse_csr_weighted &csr_info, const networ
   const uint8_t& t_length = *h_nw_info.time_length;
 
   cudaMalloc((void**) &(device_initial_info.number_of_nodes), sizeof(n_nodes));
-  cudaMemcpy(device_initial_info.number_of_nodes, &num_nodes, sizeof(n_nodes), cudaMemcpyHostToDevice);
+  cudaMemcpy(device_initial_info.number_of_nodes, csr_info.number_of_nodes, sizeof(n_nodes), cudaMemcpyHostToDevice);
   cudaMalloc((void**) &(device_initial_info.confidence),
     num_nodes * sizeof(double));
   cudaMemcpy(device_initial_info.confidence, csr_info.confidence,

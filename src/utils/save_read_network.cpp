@@ -93,5 +93,5 @@ network_in_device read_network(string &info_file_name, string &csr_file_name){
   network_in_device nw_device;
   nw_device.csr_info = read_csr(csr_file_name);
   nw_device.nw_info = read_info(info_file_name, *nw_device.csr_info.number_of_nodes);
-  return init_simulation(nw_device.csr_info, nw_device.nw_info);
+  return nw_device;
 }

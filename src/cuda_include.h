@@ -11,7 +11,6 @@
 
 #include "network_types.cpp"
 
-#include "./utils/init_simulation.cpp"
 #include "./utils/save_read_network.cpp"
 #include "./utils/cp_to_device.cu"
 

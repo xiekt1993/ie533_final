@@ -1,6 +1,6 @@
 // device utility to calculate target evidence
 __device__
-void device_cal_evidence(network_in_device &nw_device, const int &node_id, const int &t){
+void device_cal_evidence(network_in_device nw_device, const int &node_id, const int &t){
   sparse_csr_weighted& csr_info = nw_device.csr_info;
   network_info& nw_info = nw_device.nw_info;
   simulation_single& sim_ptr = nw_device.sim_ptr;
@@ -18,25 +18,30 @@ void device_cal_evidence(network_in_device &nw_device, const int &node_id, const
   int *total_activated_p = sim_ptr.total_activated_positive + node_id;
   int *total_activated_n = sim_ptr.total_activated_negative + node_id;
 
+
   if(t == 0){
     if(nw_info.nodes_types[node_id] == NODE_TYPE_STUBBORN_P){
       *current_evidence = 1;
       *p_activated = 1;
       *n_activated = 0;
-      *total_activated_p ++;
+      *total_activated_p = 1;
+      *total_activated_n = 0;
     }
 
     else if(nw_info.nodes_types[node_id] == NODE_TYPE_STUBBORN_N){
       *current_evidence = -1;
       *p_activated = 0;
       *n_activated = 1;
-      *total_activated_n ++;
+      *total_activated_p = 0;
+      *total_activated_n = 1;
     }
 
     else{
       *current_evidence = 0;
       *p_activated = 0;
       *n_activated = 0;
+      *total_activated_p = 0;
+      *total_activated_n = 0;
     }
     return;
   }
@@ -85,24 +90,15 @@ void device_cal_evidence(network_in_device &nw_device, const int &node_id, const
 }
 
 __global__
-void device_cal_evidence_global(network_in_device &nw_device, const int& t){
+void device_cal_evidence_global(network_in_device nw_device, int t){
   // less than 1024 nodes case
   const n_nodes num_nodes = *nw_device.csr_info.number_of_nodes;
-  int t_id = threadIdx.x;
-  if(t_id < num_nodes)  device_cal_evidence(nw_device, t_id, t);
-  // maybe i dont need this
-  // __syncthreads();
-  return;
+  int node_id = threadIdx.x;
+  if(node_id < num_nodes){
+    device_cal_evidence(nw_device, node_id, t);
+  }  
 }
 
-/*
-__global__
-void device_cal_evidence_global_large(network_in_device &nw_device, const int& t){
-  int t_id = threadIdx.x;
-
-  return;
-}
-*/
 
 int device_cal_evidence_host(const sparse_csr_weighted &csr_info, const network_info &h_nw_info){
   // we need number of threads equal to the nmber of nodes
@@ -114,18 +110,21 @@ int device_cal_evidence_host(const sparse_csr_weighted &csr_info, const network_
   for(int t = 0; t < t_length; t++){
     // for less than 1024 nodes
     device_cal_evidence_global<<<1, n_threads>>>(nw_device, t);
+    cudaDeviceSynchronize();
   }
 
-  int *sim_activated_positive = new int[num_nodes];
-  int *sim_activated_negative = new int[num_nodes];
+  int *sim_activated_positive = new int[num_nodes]();
+  int *sim_activated_negative = new int[num_nodes]();
   // copy results back to ram
-  cudaMemcpy(nw_device.sim_ptr.total_activated_positive, sim_activated_positive,
+  cudaMemcpy(sim_activated_positive, nw_device.sim_ptr.total_activated_positive, 
     num_nodes * sizeof(int), cudaMemcpyDeviceToHost);
-  cudaMemcpy(nw_device.sim_ptr.total_activated_negative, sim_activated_negative,
+  cudaMemcpy(sim_activated_negative, nw_device.sim_ptr.total_activated_negative, 
     num_nodes * sizeof(int), cudaMemcpyDeviceToHost);
-
+  
   int obj = 0;
   for(int n = 0; n < num_nodes; n++){
+    cout << sim_activated_positive[n] << " postive" << endl;
+    cout << sim_activated_negative[n] << " negative" << endl;
     obj += sim_activated_positive[n] - sim_activated_negative[n];
   }
   clean_device_memory(nw_device);
