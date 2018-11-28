@@ -1,3 +1,6 @@
+#ifndef RAN_GEN
+#define RAN_GEN
+
 using namespace std;
 
 uint8_t random_bernoulli(const double &p){
@@ -47,3 +50,5 @@ uint8_t random_discrete(const vector<double>& prob){
   }
   return --block;
 }
+
+#endif

@@ -1,6 +1,8 @@
 // convert the adjacency list to
 // sparse representation that can be
 // understood by gpu
+#ifndef TO_SPARSE
+#define TO_SPARSE
 
 sparse_csr_weighted to_sparse(const adjacency_list& adj_list, const influence_list& influence){
   sparse_csr_weighted csr_info;
@@ -36,3 +38,5 @@ sparse_csr_weighted generate_sparse(const sbm_parameters& sbm_pars){
 
   return to_sparse(sbm_adj_list, influence);
 }
+
+#endif

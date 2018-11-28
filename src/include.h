@@ -8,13 +8,13 @@
 #include<fstream>
 #include<stdint.h>
 
-#include "network_types.cpp"
+#include "network_types.hpp"
 
-#include "./utils/random_generate.cpp"
-#include "./utils/generate_network.cpp"
-#include "./utils/to_sparse.cpp"
-#include "./utils/gen_sbm_pars.cpp"
-#include "./utils/init_simulation.cpp"
-#include "./utils/save_read_network.cpp"
+#include "./utils/random_generate.hpp"
+#include "./utils/generate_network.hpp"
+#include "./utils/to_sparse.hpp"
+#include "./utils/gen_sbm_pars.hpp"
+#include "./utils/init_simulation.hpp"
+#include "./utils/save_read_network.hpp"
 
 #endif

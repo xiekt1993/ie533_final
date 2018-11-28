@@ -2,7 +2,7 @@
 
 using namespace std;
 int main(){
-  sbm_parameters test_sbm_pars = gen_sbm_pars(10, 1, 1, 1, 0.1);
+  sbm_parameters test_sbm_pars = gen_sbm_pars(10, 1, 1, 1, 0.5);
   sparse_csr_weighted test_csr_info = generate_sparse(test_sbm_pars);
   network_info test_info = init_info(test_csr_info, 0.1, 2, 0.8);
 

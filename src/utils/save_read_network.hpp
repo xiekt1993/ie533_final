@@ -1,3 +1,6 @@
+#ifndef SR_NW
+#define SR_NW
+
 using namespace std;
 
 void save_csr(sparse_csr_weighted csr_info,string &file_name){
@@ -95,3 +98,5 @@ network_in_device read_network(string &info_file_name, string &csr_file_name){
   nw_device.nw_info = read_info(info_file_name, *nw_device.csr_info.number_of_nodes);
   return nw_device;
 }
+
+#endif

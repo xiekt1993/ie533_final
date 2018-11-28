@@ -1,3 +1,6 @@
+#ifndef NW_TYPES
+#define NW_TYPES
+
 using namespace std;
 
 // type for number of nodes and time periods
@@ -57,3 +60,5 @@ struct network_in_device{
   network_info nw_info;
   simulation_single sim_ptr;
 };
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef GEN_NETWORK
+#define GEN_NETWORK
+
 adjacency_list generate_sbm(const sbm_parameters& sbm_pars){
   const int& number_of_nodes = sbm_pars.number_of_nodes;
   const vector<double>& class_prob = sbm_pars.class_probability;
@@ -49,3 +52,5 @@ influence_list generate_influence(const adjacency_list& adj_list){
 
   return influence;
 }
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef INIT_SIM
+#define INIT_SIM
+
 network_info init_info(const sparse_csr_weighted &csr_info, const double& p_negative,
   const uint8_t& t_length, const double& abs_threshold){
   network_info nw_info;  
@@ -36,3 +39,5 @@ network_in_device init_simulation(const sparse_csr_weighted &csr_info, const net
 
   return nw_host;
 }
+
+#endif

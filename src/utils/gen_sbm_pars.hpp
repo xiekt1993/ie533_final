@@ -1,3 +1,6 @@
+#ifndef GEN_SBM_PARS
+#define GEN_SBM_PARS
+
 using namespace std;
 
 // this only generate a sbm with 'opinion leaders'
@@ -35,3 +38,5 @@ sbm_parameters gen_sbm_pars(const n_nodes& num_nodes, const int& n_communities, 
 
   return sbm_pars;
 }
+
+#endif
