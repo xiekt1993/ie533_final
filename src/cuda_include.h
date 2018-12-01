@@ -16,5 +16,7 @@
 
 #include "./device_utils/copy_to_host.cu"
 #include "./device_utils/device_cal_influence.cu"
+#include "./device_utils/init_greedy.cu"
+#include "./device_utils/naive_greedy.cu"
 
 #endif

@@ -55,6 +55,13 @@ struct simulation_single{
   int* total_activated_negative;
 };
 
+struct simulation_greedy{
+  // equal to the nubmer of regular nodes
+  int *total_activated_n;
+  int *total_activated_p;
+  int *objective;
+};
+
 struct network_in_device{
   sparse_csr_weighted csr_info;
   network_info nw_info;
