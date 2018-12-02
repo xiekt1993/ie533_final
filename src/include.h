@@ -16,5 +16,6 @@
 #include "./utils/gen_sbm_pars.hpp"
 #include "./utils/init_simulation.hpp"
 #include "./utils/save_read_network.hpp"
+#include "./utils/cal_inv_position.cpp"
 
 #endif

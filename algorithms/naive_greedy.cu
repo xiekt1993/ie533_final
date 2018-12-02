@@ -43,14 +43,14 @@ int naive_greedy(network_in_device nw_host, network_in_device nw_device){
     nw_device.sim_ptr.total_activated_positive = sim_greedy.total_activated_p + num_nodes * node;
     nw_device.sim_ptr.total_activated_negative = sim_greedy.total_activated_n + num_nodes * node;
     for(int t = 0){
-      device_cal_evidence_global<<<1, n_threads>>>(nw_device, t);
+      device_cal_evidence_global<<<1, 1024>>>(nw_device, t);
       cudaDeviceSynchronize();
     }
     cudaMemset((nw_device.nw_info.nodes_types + node), NODE_TYPE_REGULAR, sizeof(node_type));
   }
 
   // calculate the final results
-  <<<1, 1024>>>cal_obj(sim_greedy, nw_device);
+  cal_obj<<<1, 1024>>>(sim_greedy, nw_device);
   // copy result back
   cudaMemcpy(objective, sim_greedy.objective, num_nodes * sizeof(int), cudaMemcpyDeviceToHost);
   // find optimal node and return

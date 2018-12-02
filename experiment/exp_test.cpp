@@ -10,6 +10,10 @@ int main(){
   string test_csr_filename = "test_csr.data";
   string test_info_filename = "test_info.data";
 
+  const int& n_links = test_csr_info.row_ptr[10];
   save_network(test_nw_info, test_info_filename, test_csr_filename);
+  int* inv_position = cal_inv_position(test_csr_info);
+  for(int i = 0; i < n_links; i++) cout << inv_position[i] << " ";
+  cout << endl;
   return 0;
 }
