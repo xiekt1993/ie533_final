@@ -1,7 +1,7 @@
 centrality_device init_centrality(network_in_device nw_host){
   // this is stored at GPU
   const n_nodes num_nodes = *nw_host.csr_info.number_of_nodes;
-  const uint8_t n_links = nw_host.csr_info.row_ptr[num_nodes];
+  const uint8_t num_links = nw_host.csr_info.row_ptr[num_nodes];
 
   centrality_device c_device;
   centrality_device c_host;
