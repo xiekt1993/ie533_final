@@ -7,14 +7,14 @@ centrality_device init_centrality(network_in_device nw_host){
   centrality_device c_host;
 
   c_host.centrality = new double[num_nodes];
-  c_host.centrality_tree = new double[n_links];
-  c_host.message_sent = new double[n_links];
+  c_host.centrality_tree = new double[num_links];
+  c_host.message_sent = new double[num_links];
   c_host.inv_position = cal_inv_position(nw_host.csr_info);
 
   cudaMalloc((void **) &c_device.centrality, num_nodes * sizeof(double));
-  cudaMalloc((void **) &c_device.centrality_tree, n_links * sizeof(double));
-  cudaMalloc((void **) &c_device.message_sent, n_links * sizeof(double));
-  cudaMalloc((void **) &c_device.inv_position, n_links * sizeof(int));
+  cudaMalloc((void **) &c_device.centrality_tree, num_links * sizeof(double));
+  cudaMalloc((void **) &c_device.message_sent, num_links * sizeof(double));
+  cudaMalloc((void **) &c_device.inv_position, num_links * sizeof(int));
 
   // initialize
   for(int i = 0; i < num_nodes; i++){
