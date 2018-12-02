@@ -19,7 +19,7 @@ centrality_device init_centrality(network_in_device nw_host){
   // initialize
   for(int i = 0; i < num_nodes; i++){
     c_host.centrality[i] = 0;
-    if(nw_host.nw_info[i] == NODE_TYPE_STUBBORN_N){
+    if(nw_host.nw_info.nodes_types[i] == NODE_TYPE_STUBBORN_N){
       c_host.centrality_tree[i] = 1;
       c_host.message_sent[i] = 1;
     }else{
