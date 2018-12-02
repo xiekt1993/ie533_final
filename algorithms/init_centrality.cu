@@ -37,9 +37,9 @@ centrality_device init_centrality(network_in_device nw_host){
   cudaMemcpy(c_device.inv_position, c_host.inv_position,
     num_links * sizeof(int), cudaMemcpyHostToDevice);
 
-  delete []c_host.centrality;
-  delete []c_host.centrality_tree;
-  delete []c_host.message_sent;
+  delete[] c_host.centrality;
+  delete[] c_host.centrality_tree;
+  delete[] c_host.message_sent;
 
   return c_device;
 }
