@@ -21,6 +21,4 @@
 #include "../algorithms/init_greedy.cu"
 #include "../algorithms/naive_greedy.cu"
 
-#include "../algorithms/init_centrality.cu"
-
 #endif

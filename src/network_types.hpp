@@ -68,6 +68,7 @@ struct network_in_device{
   simulation_single sim_ptr;
 };
 
+/*
 struct centrality_device{
   double *centrality;
   double *centrality_tree;
@@ -75,5 +76,6 @@ struct centrality_device{
 
   int *inv_position;
 };
+*/
 
 #endif
