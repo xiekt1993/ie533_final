@@ -12,8 +12,8 @@ void random_proposal(sparse_csr_weighted &proposal_csr, sparse_csr_weighted &cur
   double sum;
 
   for(int i = 0; i < num_nodes; i++){
-    int &i_start = csr_info.row_ptr[i];
-    int &i_end = csr_info.row_ptr[i + 1];
+    int &i_start = current_csr.row_ptr[i];
+    int &i_end = current_csr.row_ptr[i + 1];
     dis = gamma_distribution<double>(current_csr.confidence[i] * kappa, 1.0);
     sum = (proposal_csr.confidence[i] = dis(gen));
 
