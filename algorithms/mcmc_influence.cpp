@@ -6,9 +6,10 @@ void mcmc(network_in_device& nw_host, const int& n_steps){
   double accept_prob;
 
   for(int step = 0; step < n_steps; step++){
-    random_proposal(proposal_csr, nw_host.csr_info, 1000);
+    random_proposal(proposal_csr, nw_host.csr_info, 10000);
     for(int node = 0; node < num_nodes; node++){
-      new_llh = cal_llh(proposal_csr, nw_host, node);accept_prob = (new_llh - old_llh);
+      new_llh = cal_llh(proposal_csr, nw_host, node);
+      accept_prob = (new_llh - old_llh);
       accept_prob = (accept_prob > 0? 1:exp(accept_prob));
       if(random_bernoulli(accept_prob)){
         accept_proposal(proposal_csr, nw_host, node);
