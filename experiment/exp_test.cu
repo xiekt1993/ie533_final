@@ -12,5 +12,8 @@ int main(){
   for(int i = 0; i < 20; i ++) cout << sim_ptr.evidence[i] << "  ";
   cout << endl;
 
+  network_in_device nw_device = cp_to_device(nw_host.csr_info, nw_host.nw_info);
+
+  cout << naive_greedy(nw_host, nw_device, 1)[0] << endl;
   return 0;
 }
