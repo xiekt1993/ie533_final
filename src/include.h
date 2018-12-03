@@ -23,5 +23,6 @@
 
 #include "../algorithms/init_mcmc.cpp"
 #include "../algorithms/mcmc_influence.cpp"
+#include "./utils/gen_influence.cpp"
 
 #endif

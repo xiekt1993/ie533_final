@@ -1,6 +1,6 @@
 #include "../src/cuda_include.h"
 
 int main(){
-  cout << "fucking cuda" << endl;
+  cout << "cuding" << endl;
 	return 0;
 }
